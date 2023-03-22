@@ -1,15 +1,14 @@
-package com.example.simplerestapi.dto;
+package com.example.simplerestapi.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
-    private Long id;
+public class UserRequest {
     private String name;
 }
