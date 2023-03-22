@@ -3,7 +3,7 @@ package com.example.simplerestapi.controller;
 import com.example.simplerestapi.exception.ResourceNotFoundException;
 import com.example.simplerestapi.model.User;
 import com.example.simplerestapi.service.UserService;
-import dto.UserDTO;
+import com.example.simplerestapi.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

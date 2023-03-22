@@ -1,4 +1,4 @@
-package dto;
+package com.example.simplerestapi.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
