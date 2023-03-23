@@ -1,10 +1,10 @@
 package com.example.simplerestapi.controller;
 
+import com.example.simplerestapi.exception.DuplicateUserName;
 import com.example.simplerestapi.exception.ResourceNotFoundException;
 import com.example.simplerestapi.model.User;
 import com.example.simplerestapi.request.UserRequest;
 import com.example.simplerestapi.service.UserService;
-import com.example.simplerestapi.dto.UserDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/add")
-    public ResponseEntity<User> addUser(@RequestBody @Valid UserRequest userRequest) {
+    public ResponseEntity<User> addUser(@RequestBody @Valid UserRequest userRequest) throws DuplicateUserName {
+        if(userService.existsByName(userRequest.getName())) throw new DuplicateUserName("Username already exists");
         User user = new User();
         user.setName(userRequest.getName());
         log.info("Create new user name : {} ",user.getName());
@@ -40,7 +41,7 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> updateUser(@RequestBody @Valid UserRequest userRequest, @PathVariable("id") long id) throws ResourceNotFoundException {
+    public ResponseEntity<String> updateUser(@RequestBody @Valid UserRequest userRequest, @PathVariable("id") long id) throws ResourceNotFoundException,DuplicateUserName {
         User user = new User();
         user.setName(userRequest.getName());
         userService.updateUser(user,id);
@@ -54,5 +55,6 @@ public class UserController {
         log.info("Delete user with id {}",id);
         return new ResponseEntity<String>("User delete successfully!",HttpStatus.OK);
     }
+
 
 }
